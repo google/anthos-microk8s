@@ -232,6 +232,33 @@ You will now set up Anthos Config Management on the Microk8s cluster instance.
 
 * Ssh into the Microk8s cluster instance. The instance name contains the random suffix shown in the outputs of the Terraform run.
 
+* Confirm that Microk8s is installed by running the command below and examining
+  the output.
+
+```
+microk8s config
+
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: LS0...
+    server: https://10.128.0.29:16443
+  name: microk8s-cluster
+contexts:
+- context:
+    cluster: microk8s-cluster
+    user: admin
+  name: microk8s
+current-context: microk8s
+kind: Config
+preferences: {}
+users:
+- name: admin
+  user:
+    username: admin
+    password: ZHV...
+```
+
 * Go to the directory containing the installation scripts.
 
 ```
@@ -330,6 +357,7 @@ mkdir namespaces/microk8s
 
 * Copy the namespace configuration into the newly created directory.
 
+
 ```
 cp $BASEDIR/anthos-cm/static/microk8s.yaml namespaces/microk8s
 cat namespaces/microk8s/microk8s.yaml
@@ -345,10 +373,10 @@ git commit -m "define namespace microk8s"
 git push -u origin microk8s
 ```
 
-* Go to your Microk8s cluster instance and run kubectl to check for the presence of the namespace. It may take a minute or two for it to be available.
+* Go to your Microk8s cluster instance and run *microk8s kubectl* to check for the presence of the namespace. It may take a minute or two for it to be available.
 
 ```
-kubectl get namespaces
+microk8s kubectl get namespaces
 
 NAME                       STATUS   AGE
 config-management-system   Active   139m
@@ -363,7 +391,7 @@ microk8s                   Active   96s
 * You can see that a namespace was deployed. Run the following command to learn more about the namespace.
 
 ```
-kubectl describe namespace microk8s
+microk8s kubectl describe namespace microk8s
 ```
 
 * In the output for the above command you can see labels and annotations that refer to *configmanagement.gke.io* which shows that the namespace was deployed with  Anthos Config Management.
@@ -378,15 +406,15 @@ git commit -m "deploying hello.yaml"
 git push -u origin microk8s
 ```
 
-* On the Microk8s cluster instance, run the two *kubectl* commands below to view the deployments. Some output columns have been removed to improve the readability of the information.
+* On the Microk8s cluster instance, run the two *microk8s kubectl* commands below to view the deployments. Some output columns have been removed to improve the readability of the information.
 
 ```
-kubectl get deployments -n microk8s
+microk8s kubectl get deployments -n microk8s
 
 NAME        READY   UP-TO-DATE   AVAILABLE   AGE
 hello-app   1/1     1            1           13m
 
-kubectl get services -n microk8s
+mirok8s kubectl get services -n microk8s
 
 NAME             TYPE       CLUSTER-IP      ... PORT(S) ...
 hello-nodeport   NodePort   10.152.183.24   ... 80:31423/TCP ...
