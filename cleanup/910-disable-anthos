@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# disable-anthos
+#
+# Disable Anthos API to reduce charges
+
+echo Disabling Anthos...
+
+gcloud services disable anthos.googleapis.com

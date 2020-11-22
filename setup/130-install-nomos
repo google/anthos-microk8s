@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# install-nomos
+#
+# Download the nomos utility 
+
+echo "Installing nomos..."
+gsutil cp gs://config-management-release/released/latest/linux_amd64/nomos /tmp/nomos
+sudo mv /tmp/nomos /usr/local/bin
+sudo chmod 755 /usr/local/bin/nomos

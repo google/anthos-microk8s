@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# enable-apis
+#
+# Enable necessary APIs
+
+while true; do
+    read -p "Enabling the Anthos API can result in charges.  Proceed (y/n)?" yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+echo Enabling APIs...
+
+gcloud services enable \
+    anthos.googleapis.com \
+    anthosgke.googleapis.com \
+    anthosaudit.googleapis.com \
+    cloudresourcemanager.googleapis.com \
+    container.googleapis.com \
+    gkeconnect.googleapis.com \
+    gkehub.googleapis.com \
+    serviceusage.googleapis.com \
+    stackdriver.googleapis.com \
+    monitoring.googleapis.com \
+    logging.googleapis.com
