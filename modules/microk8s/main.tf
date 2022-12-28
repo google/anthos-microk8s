@@ -359,7 +359,7 @@ runcmd:
 - chmod 775 /usr/local/etc/anthos
 - chgrp -R ubuntu /usr/local/etc/anthos
 - microk8s status --wait-ready
-- microk8s enable dashboard dns storage
+- microk8s enable dashboard dns:169.254.169.254 storage
 - - gcloud
   - compute 
   - instances 
